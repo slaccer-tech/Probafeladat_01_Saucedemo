@@ -1,0 +1,30 @@
+Saucedemo validálási dokumentáció
+	Első lépésként exploratory megismertem a honlapot, milyen folyamatai, funkciói, megoldásai és hiányosságai vannak. 
+	
+	Azt az elvet követtem, hogy azon user-folyamatokat kell ellenőrizni, amelyek funkciói le vannak fejlesztve. Például lehetett volna írni tesztesetet, hogy a termékeket szűrni lehet-e, de ilyen funkció nem volt, így nem is teszteltem.
+	
+	Utána a user-folyamatokat kategóriákra osztottam: bejelentkezés, termékek rendezése, kosár műveletek, checkout.
+		
+	Mindegyik kategóriában készítettem happy path-t, ami azt ellenőrzi, hogy a fő user-flow-t kielégíti-e.
+		
+	Majd edge case-eket a negatív kimenetekre adott reakciókra fókuszáltam.
+		
+	A végén a nem-funkcionális teszteket kellett átvenni: teljesítmény, hibás termék-kezelés, vizuális hibák. Ebben sokat súgtak a megadott userek: problem_user, error_user, visual_user.
+	
+	Kategóriák:
+		Bejelentkezés:
+			A login oldal mindig különösen kritikus, minden felhasználót súlyosan érint, ha hiba van itt, ezért itt minél több esetet szerettem volna lefedni.
+		Termékek rendezése:
+			Csak a rendezésre volt funkció, azt ellenőriztem.
+		Kosár műveletek: 
+			Kosár összege, kosár módosítása, kosár számláló helyessége, vásárlás folytatása mind létező funkció, melyeket ellenőrizni kell.
+		Checkout:
+			Sikeres vásárlás a happy path.
+			Kötelező mezők kitöltése, szintén kritikus, súlyos hiba lenne ha nem működne.
+			Üres kosárral checkout ellenőrzése egy logikai hiba ellenőrzése, érdekes, hogy ezt a hibát pont tartalmazza a wbshop.
+		Nem funkcionális tesztek:
+			Teljesítmény teszt: Ezt a tesztet a performance_user indikálta, hogy megírjam. Valamilyen módon szerettem volna a teljesítményt tesztelni, ha nincs ez a user, akkor a standard_userrel léptem volna be és az elvárás 1-2s-on belüli bejelentkezés lett volna.
+			Hibás termékkezelés, hibás rendelés-lezárás: Ezeket a teszteket a problem_user és az error_user indikálta. A funkcionalitást a happy path-al már ellenőriztük, de ha vannak ilyen test userek, akkor azokat is ki kell használni.
+			A vizuális hibák ellenőrzése automatizált tesztesettel sokszor problémás, ugyanakkor a funkcionalitás működését lehet tesztelni a vizuális hibák ellenére, ezt teszi az AC-17 teszteset. 
+				Az eset kapcsán felmerült, hogy a képet magát is kellene ellenőrizni, hogy jó terméket mutat, de ezt manuális teszteléssel egyszerűbbnek tartom, ez az AC-17b.
+				Az AC-17c-ben kísérletet teszek a Checkout gomb megfelelő helyének ellenőrzésére.
